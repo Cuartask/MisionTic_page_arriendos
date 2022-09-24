@@ -72,7 +72,7 @@ function registrarUsuario() {
                 if(parsedResult != false){
                     $("#register-error").addClass("d-none");
                     let usuario = parsedResult['usuario'];
-                    document.location.href = "home.html?username=" + usuario;
+                    document.location.href = "home.html?usuario=" + usuario;
                 }else{
                     $("#register-error").removeClass("d-none");
                     $("#register-error").html("Error en el registro del usuario");

@@ -1,40 +1,47 @@
 
+
+    
 package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controller.AlquilerController;
+import controller.InmuebleController;
 
 
-@WebServlet(name = "/ServletAlquilerListar")
-public class ServletAlquilerListar extends HttpServlet {
+@WebServlet("/ServletInmuebleDevolver")
+public class ServletInmuebleDevolver extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public ServletAlquilerListar() {
+    public ServletInmuebleDevolver() {
         super();
     }
     
+    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
         
-        AlquilerController alquiler = new AlquilerController();
+        InmuebleController pelicula = new InmuebleController();
+        
         String usuario = request.getParameter("usuario");
+        int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
         
-        String alquilerStr = alquiler.listarAlquileres(usuario);
+        String libroStr = pelicula.devolver(idUsuario, usuario);
         
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-	out.println(alquilerStr);
+	out.println(libroStr);
 	out.flush();
 	out.close();
+        
+        
     }
 
     

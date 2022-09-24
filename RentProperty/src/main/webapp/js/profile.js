@@ -8,7 +8,7 @@ $(document).ready(function () {
 
       //  $("#user-saldo").html("$" + user.saldo.toFixed());
 
-        getAlquiladas(user.usuario);
+       // getAlquiladas(user.usuario);
     });
 
     $("#reservar-btn").attr("href", `home.html?usuario=${usuario}`);
@@ -23,8 +23,8 @@ $(document).ready(function () {
 
         eliminarCuenta().then(function () {
             location.href = "index.html";
-        })
-    })
+        });
+    });
 
 });
 
@@ -34,22 +34,22 @@ async function fillUsuario() {
         dataType: "html",
         url: "./ServletUsuarioPedir",
         data: $.param({
-            usuario: usuario,
+            usuario: usuario
         }),
         success: function (result) {
             let parsedResult = JSON.parse(result);
 
             if (parsedResult != false) {
                 user = parsedResult;
-
-                $("#input-id").val(parsedResult.username);
+                
+                
+                $("#input-id").val(parsedResult.idUsuario);
                 $("#input-usuario").val(parsedResult.usuario);
                 $("#input-contrasena").val(parsedResult.contrasena);
                 $("#input-nombre").val(parsedResult.nombre);
                 $("#input-apellidos").val(parsedResult.apellido);
                 $("#input-telefono").val(parsedResult.telefono);
                 $("#input-email").val(parsedResult.email);
-               // $("#input-premium").prop("checked", parsedResult.premium);
                 $("#input-ciudad").val(parsedResult.ciudad);
 
             } else {
@@ -59,7 +59,7 @@ async function fillUsuario() {
     });
 }
 
-function getAlquiladas(usuario) {
+/*function getAlquiladas(usuario) {
 
 
     $.ajax({
@@ -81,7 +81,7 @@ function getAlquiladas(usuario) {
             }
         }
     });
-}
+}*/
 
 function mostrarHistorial(inmuebles) {
     let contenido = "";
@@ -113,7 +113,7 @@ function mostrarHistorial(inmuebles) {
 }
 
 
-function devolverInmueble(id) {
+function devolverInmueble(idUsuario) {
 
     $.ajax({
         type: "GET",
@@ -121,7 +121,7 @@ function devolverInmueble(id) {
         url: "./ServletPeliculaDevolver",
         data: $.param({
             usuario: usuario,
-            id: id,
+            idUsuario: idUsuario
         }),
         success: function (result) {
 
@@ -138,8 +138,9 @@ function devolverInmueble(id) {
 }
 
 function modificarUsuario() {
-
-    let usuario = $("#input-username").val();
+    
+    let idUsuario = $("#input-id").val();
+    let usuario = $("#input-usuario").val();
     let contrasena = $("#input-contrasena").val();
     let nombre = $("#input-nombre").val();
     let apellido = $("#input-apellidos").val();
@@ -152,6 +153,7 @@ function modificarUsuario() {
         dataType: "html",
         url: "./ServletUsuarioModificar",
         data: $.param({
+            idUsuario: idUsuario,
             usuario: usuario,
             contrasena: contrasena,
             nombre: nombre,
@@ -163,7 +165,7 @@ function modificarUsuario() {
         }),
         success: function (result) {
 
-            if (result != false) {
+            if (result !== false) {
                 $("#modificar-error").addClass("d-none");
                 $("#modificar-exito").removeClass("d-none");
             } else {
