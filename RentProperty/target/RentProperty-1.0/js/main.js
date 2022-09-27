@@ -15,7 +15,7 @@ $(document).ready(function () {
 
         getInmuebles(false, "ASC");
 
-        $("#ordenar-genero").click(ordenarInmuebles);
+        //$("#ordenar-genero").click(ordenarInmuebles);
     });
 });
 

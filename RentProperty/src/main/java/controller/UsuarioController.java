@@ -16,7 +16,7 @@ public class UsuarioController implements IUsuarioController{
         
         Gson gson = new Gson();
         DBConnection con = new DBConnection();
-        String sql = "SELECT * FROM Usuario WHERE usuario ='"+ usuario
+        String sql = "SELECT * FROM usuario WHERE username ='"+ usuario
                 + "' and contrasena = '" + contrasena + "'";
         
         try {
@@ -78,7 +78,7 @@ public class UsuarioController implements IUsuarioController{
         Gson gson = new Gson();
 
         DBConnection con = new DBConnection();
-        String sql = "Select * from usuario where usuario = '" + usuario + "'";
+        String sql = "Select * from usuario where username = '" + usuario + "'";
 
         try {
 
@@ -122,7 +122,7 @@ public class UsuarioController implements IUsuarioController{
             sql += " 0 ";
         }*/
         
-        sql += " where usuario = '" + usuario + "'";
+        sql += " where username = '" + usuario + "'";
         
         try {
             Statement st = con.getConnection().createStatement();
@@ -140,8 +140,8 @@ public class UsuarioController implements IUsuarioController{
     @Override
     public String verCopias(String usuario){
        DBConnection con = new DBConnection();
-       String sql = "Select id_usuario,count(*) as num_copias from contrato where usuario = '"
-               + usuario + "' group by id;";
+       String sql = "Select id_usuario,count(*) as num_copias from contrato where id_usuario = '"
+               + usuario + "' group by id_usuario;";
        
        Map<Integer, Integer> copias = new HashMap<Integer, Integer>();
        
@@ -188,17 +188,18 @@ public class UsuarioController implements IUsuarioController{
         return "false";
     }
     
-    public String eliminar(String usuario){
+    
+    public String eliminar(String username){
         
         DBConnection con = new DBConnection();
         
-        String sql1 = "Delete from contrato where usuario = '" + usuario + "'";
-        String sql2 = "Delete from usuario where usuario  = '" + usuario + "'";
+        
+        String sql = "Delete from usuario where username  = '" + username + "'";
         
         try {
             Statement st = con.getConnection().createStatement();
-            st.executeUpdate(sql1);
-            st.executeUpdate(sql2);
+           
+            st.executeUpdate(sql);
             return "true";
         } catch (Exception ex) {
             System.out.println(ex.getMessage());

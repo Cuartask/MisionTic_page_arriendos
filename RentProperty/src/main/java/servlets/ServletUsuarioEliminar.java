@@ -18,10 +18,7 @@ public class ServletUsuarioEliminar extends HttpServlet {
 
     public ServletUsuarioEliminar() {
         super();
-    }
-    
-    
-
+    }  
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -30,10 +27,10 @@ public class ServletUsuarioEliminar extends HttpServlet {
         
         String usuario = request.getParameter("usuario");
         
-       // String usuarioStr = user.verCopias(usuario);
+        String usuarioStr = user.verCopias(usuario);
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-	//out.println(usuarioStr);
+	out.println(usuarioStr);
 	out.flush();
 	out.close();
     }

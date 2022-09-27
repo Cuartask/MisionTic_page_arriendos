@@ -30,6 +30,8 @@ public class ServletUsuarioPedir extends HttpServlet {
 		String usuario = request.getParameter("usuario");
 		
 		String usuarioStr = user.pedir(usuario);
+                
+                response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println(usuarioStr);
 		out.flush();

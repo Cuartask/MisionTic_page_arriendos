@@ -195,7 +195,7 @@ async function eliminarCuenta() {
 
             if (result != false) {
 
-                console.log("Usuario eliminado")
+                console.log("Usuario eliminado");
 
             } else {
                 console.log("Error eliminando el usuario");
