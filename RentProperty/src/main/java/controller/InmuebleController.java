@@ -14,6 +14,7 @@ import beans.Inmueble;
 import connection.DBConnection;
 import java.sql.Date;
 
+
 public class InmuebleController implements IInmuebleController {
 
     @Override
@@ -64,6 +65,47 @@ public class InmuebleController implements IInmuebleController {
 
         return gson.toJson(inmuebles);
 
+    }
+    
+    @Override
+    public String devolver(int idUsuario, String usuario){
+        DBConnection con = new DBConnection();
+        String sql = "Delete from contrato where id_usuario= " + idUsuario + " and usuario = '"
+                + usuario + "' limit 1";
+        
+        try {
+            Statement st = con.getConnection().createStatement();
+            st.executeQuery(sql);
+            
+            this.sumarCantidad(idUsuario);
+            
+            return "true";
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+        } finally {
+            con.desconectar();
+        }
+        
+        return "false";
+    }
+
+    @Override
+    public String sumarCantidad(int idUsuario){
+        DBConnection con = new DBConnection();
+        
+        String sql = "Update inmueble set copias = (Select copias from inmueble where id_usuario = "
+                + idUsuario + ") + 1 where id_usuario = " + idUsuario;
+        
+        try {
+            Statement st = con.getConnection().createStatement();
+            st.executeUpdate(sql);
+            return "true";
+        } catch (Exception ex) {
+            System.out.println(ex.toString());
+        } finally {
+            con.desconectar();
+        }
+        return "false";
     }
 
     

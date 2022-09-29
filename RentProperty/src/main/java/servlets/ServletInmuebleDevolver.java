@@ -1,4 +1,6 @@
 
+
+    
 package servlets;
 
 import java.io.IOException;
@@ -9,30 +11,37 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controller.UsuarioController;
+import controller.InmuebleController;
 
 
-@WebServlet("/ServletUsuarioEliminar")
-public class ServletUsuarioEliminar extends HttpServlet {
+@WebServlet("/ServletInmuebleDevolver")
+public class ServletInmuebleDevolver extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
-    public ServletUsuarioEliminar() {
+    public ServletInmuebleDevolver() {
         super();
-    }  
+    }
+    
+    
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UsuarioController user = new UsuarioController();
+        
+        InmuebleController pelicula = new InmuebleController();
         
         String usuario = request.getParameter("usuario");
+        int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
         
-        String usuarioStr = user.verCopias(usuario);
+        String libroStr = pelicula.devolver(idUsuario, usuario);
+        
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-	out.println(usuarioStr);
+	out.println(libroStr);
 	out.flush();
 	out.close();
+        
+        
     }
 
     
